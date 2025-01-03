@@ -11,15 +11,18 @@ use App\Http\Controllers\Medicamentos\RelatoriosController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    if (auth()->check()) {
+        return redirect(route('listagem')); // Usuário logado vai para listagem
+    }
+    
+    return redirect(route('index')); // Usuário não logado vai para login
+
+})->name('home');
+
 Route::middleware('guest')->group(function(){
 
-    Route::get('/', UserController::class)->name('index');
-
-    Route::get('/login', function(){
-        if (auth()->guest()) {
-            return redirect(route('index'))->with(['message' => 'Realize o login para continuar!']);
-        }
-    });
+    Route::get('/login', UserController::class)->name('index');
 
     Route::post('/login', LoginController::class)->name('login');
 

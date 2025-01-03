@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Medicamentos;
 use App\Models\Medicamentos_Mov;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,8 +82,10 @@ class RelatoriosController extends Controller
         // Carregando os medicamentos e as UBS
         $medicamentos = Medicamentos::all();
         $ubs = User::all();
+
         // Retornando para a view com as variáveis
         return view('medicamentos.relatorio', compact('medicamentos', 'ubs', 'query', 'dtIni', 'medicamento', 'dtFim', 'ubsFilter', 'queryDetail'));
+
     }
 
 
@@ -106,7 +108,7 @@ class RelatoriosController extends Controller
             ->select(
                 'm.nome',
                 DB::raw('SUM(CASE WHEN mm.nAcao = 1 THEN mm.quantidade ELSE 0 END) as entradas'),
-                DB::raw('SUM(CASE WHEN mm.nAcao = 2 THEN mm.quantidade ELSE 0 END) as saídas')
+                DB::raw('SUM(CASE WHEN mm.nAcao = 2 THEN mm.quantidade ELSE 0 END) as saidas')
             )
             ->when($medicamento, function ($query) use ($medicamento) {
                 return $query->where('mm.nMed', '=', $medicamento);
@@ -131,7 +133,7 @@ class RelatoriosController extends Controller
             ->select(
                 'm.nome',
                 DB::raw('CASE WHEN mm.nAcao = 1 THEN mm.quantidade ELSE 0 END as entradas'),
-                DB::raw('CASE WHEN mm.nAcao = 2 THEN mm.quantidade ELSE 0 END as saídas'),
+                DB::raw('CASE WHEN mm.nAcao = 2 THEN mm.quantidade ELSE 0 END as saidas'),
                 'mm.quantidade',
                 'mm.nAcao',
                 'mm.created_at',
@@ -153,7 +155,7 @@ class RelatoriosController extends Controller
             ->get();
 
         // Gerando o PDF com os resultados das consultas
-        $pdf = Pdf::loadView('relatorios.medicamentos', compact('query', 'queryDetail'));
+        $pdf = FacadePdf::loadView('relatorios.medicamentos', compact('query', 'queryDetail'));
 
         // Retornando o PDF para download
         return $pdf->download('relatorio_medicamentos.pdf');

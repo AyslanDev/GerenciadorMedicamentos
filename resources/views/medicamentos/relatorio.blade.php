@@ -107,13 +107,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($queryDetail as $medicamento)
+                                    @foreach($queryDetail as $submed)
                                         <tr>
-                                            <td>{{ $medicamento->nome }}</td>
-                                            <td>{{ $medicamento->entradas }}</td>
-                                            <td>{{ $medicamento->saidas }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($medicamento->created_at)->format('d/m/Y') }}</td>
-                                            <td>{{ $medicamento->name }}</td>
+                                            <td>{{ $submed->nome }}</td>
+                                            <td>{{ $submed->entradas }}</td>
+                                            <td>{{ $submed->saidas }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($submed->created_at)->format('d/m/Y') }}</td>
+                                            <td>{{ $submed->name }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
