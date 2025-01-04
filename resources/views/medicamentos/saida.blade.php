@@ -16,7 +16,7 @@
           <label for="medicamento" class="form-label">Medicamento</label>
           <select name="medicamento" class="form-control" id="">
             @foreach ($medicamentos as $med)
-            <option value="{{ $med->id }}">{{ $med->nome }}</option>
+            <option value="{{ $med->id }}">{{ $med->nome }} - {{  \Carbon\Carbon::parse($med->validade)->format('d/m/Y')  }}</option>
             @endforeach
           </select>
         </div>

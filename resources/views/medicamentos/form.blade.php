@@ -60,6 +60,16 @@
         </div>
     </div>
     @endif
+
+    @if($message ===  'The validade field must be a valid date.')
+    <div class="col-lg-6">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-1"></i>
+            A data de validade tem que válida
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    @endif
 @enderror
 </div>
 
@@ -84,6 +94,7 @@
           <label for="inputPassword5" class="form-label" >Validade</label>
           <input type="text" name="validade" class="form-control" id="validade">
         </div>
+
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Incluir</button>
         </div>

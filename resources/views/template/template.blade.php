@@ -30,7 +30,19 @@
   <link href=" {{ asset('assets/css/style.css') }} " rel="stylesheet">
 
 </head>
+<style>
+  #cardScale{
 
+    cursor: pointer !important;
+    transition: background-color 0.3s, transform 0.2s !important; 
+    
+  }
+  #cardScale:hover {
+
+    transform: scale(1.02); /* Leve aumento no tamanho para dar destaque */
+    
+  }
+</style>
 <body>
 
   <!-- ======= Header ======= -->
