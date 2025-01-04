@@ -38,11 +38,9 @@
 
           <!-- Revenue Card -->
           <div class="col-md-6">
-            <div class="card info-card ">
+            <div class="card info-card " id="cardScale">
 
-    
-
-              <div class="card-body">
+              <div class="card-body" data-bs-toggle="modal" data-bs-target="#modal_venci" id="cardVenci">
                 <h5 class="card-title text-primary">Validade <span>| Próximo do vencimento</span></h5>
 
                 <div class="d-flex align-items-center">
@@ -103,6 +101,9 @@
                   @endforeach
                 </tbody>
               </table>
+              <div class="pagination-container text-dark">
+                {{ $medicamentos->links('pagination::bootstrap-4') }}
+            </div>
             </div>
           </div>
         </div>
@@ -139,6 +140,37 @@
             
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal_venci" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="title_modal">Medicamentos perto do prazo de validade</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-wrap">
+            <table class="table table-responsive-xl">
+              <thead >
+                <tr >
+                  <th style="color: #012970">Medicamento</th>
+                  <th style="color: #012970">Validade</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($validade as $val)
+                <tr>
+                  <td>{{ $val->nome }}</td>
+                  <td>{{ \Carbon\Carbon::parse($val->validade)->format('d/m/Y') }}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>  
       </div>
     </div>
   </div>

@@ -17,7 +17,7 @@ class DashboardController extends Controller
             DB::raw('SUM(CASE WHEN medicamentos_mov.nAcao = 2 THEN medicamentos_mov.quantidade ELSE 0 END) as saidas')
         )
         ->groupBy('medicamentos.id', 'medicamentos.nome', 'medicamentos.validade')
-        ->get();
+        ->paginate(10);
 
         $totalMedicamentos = DB::table('medicamentos')->count();
 
@@ -28,7 +28,7 @@ class DashboardController extends Controller
 
         $validadeCount = $validade->count();
 
-        return view('dashboard', compact('medicamentos', 'totalMedicamentos', 'validadeCount'));
+        return view('dashboard', compact('medicamentos', 'totalMedicamentos', 'validadeCount', 'validade'));
 
     }
 

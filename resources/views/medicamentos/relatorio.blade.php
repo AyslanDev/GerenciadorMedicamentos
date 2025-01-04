@@ -18,7 +18,7 @@
                                 <select name="medicamento" id="" class="form-control">
                                     <option value=""></option>
                                     @foreach ($medicamentos as $medicamentoOption)
-                                    <option value="{{ $medicamentoOption->id }}" @selected($medicamento == $medicamentoOption->id)>{{ $medicamentoOption->nome }}</option>
+                                    <option value="{{ $medicamentoOption->id }}" @selected($medicamento == $medicamentoOption->id)>{{ $medicamentoOption->nome }} - {{  \Carbon\Carbon::parse($medicamentoOption->validade)->format('d/m/Y')  }}</option>
                                     @endforeach
                                 </select>
                             </div>
